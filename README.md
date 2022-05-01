@@ -1,4 +1,4 @@
-Starter template for the Web3 Solana Dashboard - Next.js w/ Moralis
+Web3 Solana Dashboard - Next.js w/ Moralis
 
 ## Getting Started
 
