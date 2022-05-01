@@ -1,4 +1,4 @@
-import { useMoralisSolanaApi, setSolanaBalance } from "react-moralis";
+import { useMoralisSolanaApi } from "react-moralis";
 import { useEffect, useState } from 'react';
 
 export default function Dashboard({logout, user}) {
@@ -8,6 +8,8 @@ export default function Dashboard({logout, user}) {
 
     let [solanaBalance, setSolanaBalance] = useState('');
     let [splBalance, setSplBalance] = useState([{}]);
+    let [nftsBalance, setNftsBalance] = useState([{}]);
+    
     
     useEffect(() => {
         const fetchData = async () => {
@@ -27,6 +29,16 @@ export default function Dashboard({logout, user}) {
                     address: walletAddress
                 });
                 setSplBalance(result);
+            } catch (error) {
+                console.log(error);
+            }
+
+            try {
+                let result = await SolanaAPI.account.getNFTs({
+                    network: 'devnet',
+                    address: walletAddress
+                });
+                setNftsBalance(result);
             } catch (error) {
                 console.log(error);
             }
@@ -53,9 +65,11 @@ export default function Dashboard({logout, user}) {
                     </ul>
                 </div>
                 <div className="bg-cyan md:col-span-2 rounded-2xl drop-shadow-md px-2 py-2 md:px-4 md:py-4 md:text-lg">
-                    <p className="text-2xl md:text-4xl">nfts 1</p>
+                    <p className="text-2xl md:text-4xl">nfts {nftsBalance.length}</p>
                     <ul className="list-disc px-4 mt-4 md:mt-10 text-md md:text-lg">
-                        <li>Gh9ZwEmwe8rewrew...</li>
+                        {nftsBalance.length > 0 && nftsBalance.map((nft, index) => (
+                            <li key={index}>{nft.mint}</li>
+                        ))}
                     </ul>
                 </div>
             </div>
