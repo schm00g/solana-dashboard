@@ -68,7 +68,7 @@ export default function Dashboard({logout, user}) {
                     <p className="text-2xl md:text-4xl">nfts {nftsBalance.length}</p>
                     <ul className="list-disc px-4 mt-4 md:mt-10 text-md md:text-lg">
                         {nftsBalance.length > 0 && nftsBalance.map((nft, index) => (
-                            <li key={index}>{nft.mint}</li>
+                            <li className="text-ellipsis overflow-hidden" key={index}>{nft.mint}</li>
                         ))}
                     </ul>
                 </div>
